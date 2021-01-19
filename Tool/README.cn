@@ -1,0 +1,44 @@
+
+====== 1. 项目说明 ======
+Ventoy 支持 Linux vDisk 的启动，详细说明请参考 https://www.ventoy.net/cn/plugin_vtoyboot.html
+
+通过 Ventoy 可以启动 Ventoy 所在的磁盘上的 vdisk 文件，也可以启动非 Ventoy 盘（本地磁盘）上的 vdisk 文件。
+但是这两者都必须要通过 Ventoy 才可以启动。
+
+实际上 vdisk 启动这个功能是可以独立出来的。
+可以集成到其他 bootloader 中来启动，比如 grub4dos/grub2/rEFInd/Systemd-boot 等。
+
+本项目就是用来提供此功能的。通过使用这里的 vdiskchain 可以在其他 bootloader 中启动 vdisk.
+
+
+
+====== 2. 特殊要求 ======
+唯一的要求是 vdisk 文件所在的分区文件系统只能是 FAT32/NTFS/exFAT/XFS/Ext2/Ext3/Ext4/UDF 中的一种。
+
+
+
+======== 3. 使用方法 =========
+------------- i386-pc -----------------------
+GRUB4DOS:
+kernel /ipxe.krn vdisk=/MyVdiskDir/Deepin.vdi.vtoy
+initrd /vdiskchain
+
+GRUB2:
+linux16  /ipxe.krn vdisk=/MyVdiskDir/Deepin.vdi.vtoy
+initrd16 /vdiskchain
+
+
+------------- x86_64-efi -----------------------
+GRUB2:
+chainloader /vdiskchain vdisk=/MyVdiskDir/Deepin.vdi.vtoy
+
+rEFInd:
+loader /vdiskchain vdisk=/MyVdiskDir/Deepin.vdi.vtoy
+
+Systemd-boot:
+efi /vdiskchain vdisk=/MyVdiskDir/Deepin.vdi.vtoy
+
+
+======== 4. 特殊说明 =========
+1. i386-pc (Legacy BIOS) 模式下，grub4dos/grub2 必须是用磁盘启动的才可以 chainload 成功，从光驱启动的无法 chainload 成功。
+

@@ -1,0 +1,8 @@
+{
+    "control": [        
+        { "VTOY_DEFAULT_IMAGE": "F6>vDiskChainLoad" }
+    ],
+    "theme": {
+        "display_mode": "CLI"
+    }
+}
