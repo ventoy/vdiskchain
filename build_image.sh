@@ -1,7 +1,5 @@
 #!/bin/bash
 
-version=1.0
-
 rm -f vdiskchain
 rm -f vdiskchain.img
 sync
