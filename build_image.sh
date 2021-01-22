@@ -101,7 +101,8 @@ cd ../EDKII
 sh build.sh
 cd -
 
-echo "123" > ../EDKII/edk2-edk2-stable201911/MdeModulePkg/Application/VDiskChain/VDiskRawData.c
+echo "#include <Uefi.h>" > ../EDKII/edk2-edk2-stable201911/MdeModulePkg/Application/VDiskChain/VDiskRawData.c
+echo "int vdisk_get_vdisk_raw(UINT8 **buf, UINT32 *size) { *buf = NULL; *size = 0; return 0; }" > ../EDKII/edk2-edk2-stable201911/MdeModulePkg/Application/VDiskChain/VDiskRawData.c
 
 rm -f vdiskchain.byte
 mv ./Tool/vdiskchain_x64.efi vdiskchain
