@@ -1,6 +1,6 @@
 #!/bin/bash
 
-version=1.0
+version=1.2
 
 [ -d ./vdiskchain-${version} ] && rm -rf ./vdiskchain-${version}
 mkdir -p ./vdiskchain-${version}/doc
