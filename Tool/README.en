@@ -14,13 +14,13 @@ kernel /ipxe.krn vdisk=/MyVdiskDir/Deepin.vdi.vtoy
 initrd /vdiskchain
 
 GRUB2:
-linux16  /ipxe.krn vdisk=/MyVdiskDir/Deepin.vdi.vtoy
-initrd16 /vdiskchain
+linux16  (hd0,1)/ipxe.krn vdisk=/MyVdiskDir/Deepin.vdi.vtoy
+initrd16 (hd0,1)/vdiskchain
 
 
 ==== 2.2 x86-64-efi ==== 
 grub2:
-chainloader /vdiskchain vdisk=/MyVdiskDir/Deepin.vdi.vtoy
+chainloader (hd1,1)/test123/vdiskchain vdisk=/MyVdiskDir/Deepin.vdi.vtoy
 
 rEFInd:
 loader /vdiskchain vdisk=/MyVdiskDir/Deepin.vdi.vtoy
