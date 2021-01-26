@@ -1,12 +1,9 @@
 on:
   push:
-    # delete this item if you don't want to trigger this workflow when modify this repo
-    branches: master
-  schedule:
-    # * is a special character in YAML so you have to quote this string
-    # UTC 17:00 -> CST (China) 1:00, see https://datetime360.com/cn/utc-cst-china-time/
-    - cron: '0 17 * * *'
-name: Mirror GitHub Auto Queried Repos to Gitee
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+name: Mirror GitHub to Gitee
 jobs:
   run:
     name: Sync-GitHub-to-Gitee
@@ -19,4 +16,5 @@ jobs:
         dst: gitee/LongPanda
         dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
         dst_token: ${{ secrets.GITEE_TOKEN }}
+        static_list: "vdiskchain"
         force_update: true
