@@ -92,17 +92,28 @@ rm -f vdiskchain-tmp vdiskchain.img
 gcc ./Tool/Raw2Code.c -o Raw2Code
 
 ./Raw2Code vdiskchain.byte 1.c
-cat 1.c > ../EDKII/edk2-edk2-stable201911/MdeModulePkg/Application/VDiskChain/VDiskRawData.c
+
+if [ -d ../EDKII/edk2-edk2-stable201911 ]; then
+    EDK=EDKII
+elif [ -d ../EDK2/edk2-edk2-stable201911 ]; then
+    EDK=EDK2
+else
+    echo "No EDK directory found"
+    exit 1
+fi
+
+
+cat 1.c > ../$EDK/edk2-edk2-stable201911/MdeModulePkg/Application/VDiskChain/VDiskRawData.c
 rm -f ./Raw2Code 1.c 
 sync
 
 
-cd ../EDKII
+cd ../$EDK
 sh build.sh
 cd -
 
-echo "#include <Uefi.h>" > ../EDKII/edk2-edk2-stable201911/MdeModulePkg/Application/VDiskChain/VDiskRawData.c
-echo "int vdisk_get_vdisk_raw(UINT8 **buf, UINT32 *size) { *buf = NULL; *size = 0; return 0; }" >> ../EDKII/edk2-edk2-stable201911/MdeModulePkg/Application/VDiskChain/VDiskRawData.c
+echo "#include <Uefi.h>" > ../$EDK/edk2-edk2-stable201911/MdeModulePkg/Application/VDiskChain/VDiskRawData.c
+echo "int vdisk_get_vdisk_raw(UINT8 **buf, UINT32 *size) { *buf = NULL; *size = 0; return 0; }" >> ../$EDK/edk2-edk2-stable201911/MdeModulePkg/Application/VDiskChain/VDiskRawData.c
 
 rm -f vdiskchain.byte
 mv ./Tool/vdiskchain_x64.efi vdiskchain
